@@ -5,11 +5,10 @@ import requests
 from datetime import datetime
 import sys
 
-# Define local file paths
 REGNO_FILE_PATH = 'regno.csv'
 USER_ACTIVITY_LOG_PATH = 'user_activity_log.csv'
 
-# Company name to ticker symbol mapping
+
 COMPANY_TICKER_MAP = {
     "Apple": "AAPL",
     "Microsoft": "MSFT",
@@ -155,17 +154,17 @@ def main():
         if choice == "1":
             email = input("Enter your email: ")
 
-            # Validate email format
+           
             if not validate_email(email):
                 print("Invalid email format. Please try again.")
-                continue  # Ask again for a valid email
+                continue  
 
             password = input("Enter your password: ")
 
-            # Validate password format
+            
             if not validate_password(password):
                 print("Invalid password format. Password must be at least 8 characters long and contain at least one special character.")
-                continue  # Ask again for valid password
+                continue 
 
             security_question = input("Enter a security question: ")
             correct_answer = input("Enter the answer to the security question: ")
@@ -175,17 +174,16 @@ def main():
         elif choice == "2":
             email = input("Enter your email: ")
 
-            # Validate email format
             if not validate_email(email):
                 print("Invalid email format. Please try again.")
-                continue  # Ask again for a valid email
+                continue 
 
             try:
                 with open(REGNO_FILE_PATH, mode='r') as file:
                     reader = csv.reader(file)
                     for row in reader:
                         if row[0] == email:
-                            # If email exists, provide login option
+                          
                             login_attempts = 0
                             while login_attempts < 5:
                                 password = input("Enter your password: ")
@@ -197,19 +195,19 @@ def main():
                                     login_attempts += 1
                                     print(f"Attempt {login_attempts} of 5.")
 
-                            # After 3 failed attempts, offer password reset option
+                            
                             if login_attempts >= 3:
                                 reset_choice = input("Too many failed attempts. Would you like to reset your password? (yes/no): ")
                                 if reset_choice.lower() == 'yes':
                                     if reset_password(email):
                                         print("Password reset successful. Please log in again.")
-                                        main()  # Restart main function
+                                        main()  
                                     else:
                                         print("Password reset failed.")
                                 else:
                                     print("Exiting application.")
                                     return
-                            return  # Exit the function after failed login attempts
+                            return 
                     else:
                         print("New user, please sign up first.")
             except FileNotFoundError:
@@ -218,10 +216,10 @@ def main():
         elif choice == "3":
             email = input("Enter your email for password reset: ")
 
-            # Validate email format
+          
             if not validate_email(email):
                 print("Invalid email format. Please try again.")
-                continue  # Ask again for a valid email
+                continue  
 
             reset_password(email)
         else:
