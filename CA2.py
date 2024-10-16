@@ -225,5 +225,10 @@ def main():
         else:
             print("Invalid choice. Please enter 1, 2, or 3.")
 
-if _name_ == "_main_":
+if __name__ == "__main__":
       main()
+
+# Once the user signs up and after getting the output of Stocks to download that data, please uncomment the below code. 
+# from google.colab import files
+# files.download('regno.csv')
+# files.download('user_activity_log.csv')
